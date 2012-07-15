@@ -1,10 +1,14 @@
 {
   "name": "cordova",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "preferGlobal": "true",
   "description": "Cordova client tool",
-  "main": "cordova.js",
+  "main": "cordova",
+  "bin": {
+    "cordova": "./bin/cordova"
+  },
   "scripts": {
-    "test": "jake"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -13,8 +17,11 @@
   "keywords": [
     "cordova",
     "client",
-    "tool"
+    "cli"
   ],
+  "devDependencies": {"mocha":"*"},
+  "dependencies": {"colors":">=0.6.0"},
   "author": "Anis Kadri",
+  "contributors": [{"name": "Brian LeRoux","email": "b@brian.io"}],
   "license": "Apache"
 }
