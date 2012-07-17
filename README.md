@@ -19,68 +19,87 @@ Cordova client has been tested on Windows, Linux and Mas OS X.
 Using cordova client
 ====================
 
+config.js
+---------
+
+Cordova projects can be defined in _config.js_. Cordova client will use that file by default if no command line arguments are provided. Command-line arguments always override the settings in _config.js_
+    
+Sample config.js
+
+    config = {};
+    
+    // point this to your phonegap distribution
+    config.dist = '~/Downloads/phonegap-phonegap-41e05fc';
+
+    // define your cordova projects and target platforms
+    config.platforms = {};
+    config.platforms.ios = {
+        directory: './ios-example',
+        package: 'org.example.mypackage',
+        project_name: 'iOSExample'
+    };
+
+    config.platforms.android = {
+        directory: './android-example',
+        package: 'org.example.mypackage',
+        project_name: 'androidExample'
+    };
+
+    module.exports = config;
+
+
 Creating projects
 -----------------
 
-    cordova create [[platform:[directory]:[package_name]:[project_name]] [platform:[directory]:[package_name]:[project_name]]...|cordova.conf]
-<!-- -->
+    cordova create [platform:[directory]:[package_name]:[project_name]]...
 
+<!-- -->
+- platform: choose between ios, android (required)
 - directory: path to your new Cordova based project
 - package_name: following reverse-domain style convention
 - project_name: Cordova based project name
 
-When called with no arguments _cordova create_ will generate an _cordova-ios-example_ and _cordova-android-example_ in the current directory
-
-cordova.conf format
--------------------
-
-cordova.conf should be formatted this way:
-
-    platform directory package_name project_name
-    platform directory package_name project_name
-
-Default cordova.conf:
-
-    ios ~/Projects/ios-example com.example.cordovaexample CordovaExample
-    android ~/Projects/android-example com.example.cordovaexample CordovaExample
-
-Building projects
------------------
-
-    cordova build [[directory] [directory]...|cordova.conf]
-
-You can call _cordova build_ with no arguments if you are inside a cordova based project. _cordova build_ will just call the _./cordova/debug_ script.
+When called with no arguments _cordova create_ will generate projects based on the _config.js_ configuration file.
 
 
-Emulating projects
-------------------
+Project actions
+---------------
 
-    cordova emulate [directory] [directory]...|cordova.conf
+    cordova debug [directory]...
+    cordova clean [directory]...
+    cordova emulate [directory]...
 
-Will launch the platform's emulator
-
+if called with no arguments, the actions above will run inside the projects that are defined in the _config.js_ configuration file.
 
 Examples:
 =========
 
-Creating a sample iOS and android project
------------------------------------------
+Creating projects 
+-----------------
 
     cordova create
 
-this will generate two projects in the current directory: _ios-example_ and _android-example_
+Will generate the projects that are defined in the _config.js_ configuration file
 
-Creating a sample iOS project and android project with specific arguments
--------------------------------------------------------------------------
-    
     cordova create ios:./my-ios-project:com.example.myiospackage:CordovaExample android:./my-android-project:com.example.myandroidpackage:CordovaActivity
 
-Building projects (platform does not matter)
---------------------------------------------
+Will generate an iOS project and an android project with the given parameters.
 
-    cordova build ./ios-example ./android-example
+Project actions 
+---------------
+    
+    cordova debug
 
-Emulating projects (platform does not matter)
---------------------------------------------
+Will build the projects defined in the _config.js_ configuration file.
 
-    cordova emulate ./ios-example ./android-example
+    cordova debug ./ios-example
+
+Will only build the project inside ./ios-example
+    
+    cordova clean
+
+Will clean the projects defined in the _config.js_ configuration file.
+
+    cordova clean ./ios-example
+
+Will only clean the project inside ./ios-example 
