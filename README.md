@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/imhotep/cordova-client.png)](http://travis-ci.org/imhotep/cordova-client)
 cordova-client
 ==============
 
